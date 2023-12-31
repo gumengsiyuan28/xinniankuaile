@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>New Year Celebration</title>
+  <title>è¿å¹´æ¾çè±</title>
 </head>
 <style>
   body {
@@ -68,7 +68,6 @@
     // Rocket class
     class Rocket {
       constructor() {
-        // Customize rocket properties here
         this.x = Math.random() * c2.width;
         this.y = c2.height - 15;
         this.blastSpeed = 6 + Math.random() * 7;
@@ -79,29 +78,33 @@
       }
 
       draw() {
-        // Customize rocket drawing here
         ctx2.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
         ctx2.fillRect(this.x, this.y, 5, 15);
       }
 
       update() {
-        // Customize rocket movement here
         this.x += this.xSpeed;
         this.y += this.ySpeed;
         this.ySpeed += 0.1;
       }
 
       explode() {
-        // Customize rocket explosion here
         for (let i = 0; i < this.shardCount; i++) {
           shards.push(new Shard(this.x, this.y, this.hue));
         }
       }
     }
 
-    // Shard class (similar to the one in your provided code)
+    // Shard class
     class Shard {
-      // ... (same as in your provided code)
+      constructor(x, y, hue) {
+        this.x = x;
+        this.y = y;
+        this.hue = hue;
+        // ... (rest of Shard class, similar to previous examples)
+      }
+
+      // ... (methods of Shard class, similar to previous examples)
     }
   </script>
 
