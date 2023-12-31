@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fireworks Celebration</title>
+    <title>Auto Fireworks Celebration</title>
     <style>
         body {
             margin: 0;
@@ -81,10 +81,13 @@
         requestAnimationFrame(animate);
     }
 
-    document.addEventListener('click', () => {
-        createFirework();
-    });
+    function autoFireworks() {
+        setInterval(() => {
+            createFirework();
+        }, 2000); // 2000 milliseconds (2 seconds) interval
+    }
 
+    autoFireworks();
     animate();
 </script>
 
