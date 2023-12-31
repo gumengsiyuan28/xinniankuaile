@@ -1,62 +1,92 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy New Year 2024!</title>
-</head>
-<style>
-  body {
-    margin: 0;
-    overflow: hidden;
-    background: black;
-  }
+    <meta charset="UTF-8">
+    <title>Fireworks Celebration</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
 
-  canvas {
-    position: absolute;
-  }
-</style>
+        canvas {
+            position: absolute;
+        }
+    </style>
+</head>
 <body>
 
-  <canvas></canvas>
-  <canvas></canvas>
-  <canvas></canvas>
+<canvas id="fireworksCanvas"></canvas>
 
-  <script>
-    const [c1, c2, c3] = document.querySelectorAll('canvas');
-    const [ctx1, ctx2, ctx3] = [c1, c2, c3].map(c => c.getContext('2d'));
-    const rockets = [];
-    const shards = [];
-    const targets = [];
-    const fidelity = 3;
+<script>
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    const fireworks = [];
 
-    c2.width = c3.width = window.innerWidth;
-    c2.height = c3.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Initialize rockets and targets
-    // ... (similar to the previous example)
+    class Firework {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height;
+            this.radius = 2;
+            this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            this.velocity = {
+                x: Math.random() * 4 - 2,
+                y: Math.random() * -10 - 5
+            };
+            this.gravity = 0.2;
+            this.life = true;
+        }
 
-    // Animation loop
-    (function loop() {
-      ctx2.fillStyle = "rgba(0, 0, 0, .1)";
-      ctx2.fillRect(0, 0, c2.width, c2.height);
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
 
-      // Update and draw rockets
-      // ... (similar to the previous example)
+        update() {
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            this.velocity.y += this.gravity;
 
-      // Update and draw shards
-      // ... (similar to the previous example)
-
-      requestAnimationFrame(loop);
-    })();
-
-    // Helper functions
-    const lerp = (a, b, t) => Math.abs(b - a) > 0.1 ? a + t * (b - a) : b;
-
-    function getTarget() {
-      // ... (similar to the previous example)
+            if (this.radius > 0.2) {
+                this.radius -= 0.1;
+            } else {
+                this.life = false;
+            }
+        }
     }
-  </script>
+
+    function createFirework() {
+        const firework = new Firework();
+        fireworks.push(firework);
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        fireworks.forEach((firework, index) => {
+            firework.draw();
+            firework.update();
+
+            if (!firework.life) {
+                fireworks.splice(index, 1);
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    document.addEventListener('click', () => {
+        createFirework();
+    });
+
+    animate();
+</script>
 
 </body>
 </html>
