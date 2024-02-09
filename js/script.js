@@ -32,8 +32,8 @@ const GRAVITY = 0.9; //以像素/秒为单位的加速度
 let simSpeed = 1;
 
 function getDefaultScaleFactor() {
-	if (IS_MOBILE) return 0.9;
-	if (IS_HEADER) return 0.75;
+	if (IS_MOBILE) return 0.5;
+	if (IS_HEADER) return 0.35;
 	return 1;
 }
 
@@ -79,7 +79,7 @@ const stages = [trailsStage, mainStage];
 const randomWords = ["祝我家小公主春节快乐！"];
 const wordDotsMap = {};
 randomWords.forEach((word) => {
-	wordDotsMap[word] = MyMath.literalLattice(word, 3, "Gabriola,华文琥珀", "30px");
+	wordDotsMap[word] = MyMath.literalLattice(word, 3, "Gabriola,华文琥珀", "90px");
 });
 
 //全屏帮助程序，使用Fscreen作为前缀。
@@ -135,7 +135,7 @@ const store = {
 				? "3" // Desktop default
 				: IS_HEADER
 				? "1.2" //配置文件头默认值(不必是int)
-				: "2", //手机默认
+				: "0.25", //手机默认
 			wordShell: true, //文字烟花 默认为开启 若不开启可修改为false
 			autoLaunch: true, //自动发射烟花
 			finale: true, //同时放更多烟花
@@ -845,7 +845,7 @@ function init() {
 	// 0.9 is mobile default
 	setOptionsForSelect(
 		appNodes.scaleFactor,
-		[0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map((value) => ({ value: value.toFixed(2), label: `${value * 100}%` }))
+		[0.25,0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map((value) => ({ value: value.toFixed(2), label: `${value * 100}%` }))
 	);
 
 	// Begin simulation
